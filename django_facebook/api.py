@@ -589,6 +589,7 @@ class FacebookUserConverter(object):
             for f in friends:
                 name = f.get('name')
                 gender = None
+                birthday_date = None
 
                 if f.get('sex'):
                     gender = gender_map[f.get('sex')]
