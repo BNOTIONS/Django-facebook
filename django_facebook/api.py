@@ -594,9 +594,9 @@ class FacebookUserConverter(object):
                     gender = gender_map[f.get('sex')]
 
                 if f.get('birthday_date'):
-                    gender = self._parse_data_of_birth(f.get('birthday_date'))
+                    birthday_date = self._parse_data_of_birth(f.get('birthday_date'))
 
-                default_dict[str(f['id'])] = dict(name=name, gender=gender)
+                default_dict[str(f['id'])] = dict(name=name, gender=gender, birthday=birthday_date)
             id_field = 'facebook_id'
 
             current_friends, inserted_friends = mass_get_or_create(
