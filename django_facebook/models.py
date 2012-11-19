@@ -149,6 +149,8 @@ class FacebookUser(models.Model):
     gender = models.CharField(choices=(
         ('F', 'female'), ('M', 'male')), blank=True, null=True, max_length=1)
 
+    birthday = models.CharField(blank=True, null=True, max_length=10)
+
     objects = model_managers.FacebookUserManager()
 
     class Meta:

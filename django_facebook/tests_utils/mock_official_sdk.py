@@ -35,8 +35,10 @@ class MockFacebookAPI(OpenFacebook):
     def fql(self, query, **kwargs):
         """Runs the specified query against the Facebook FQL API.
         """
-        friend = dict(name="Aida Tavakkolie", uid=172001264, gender='F')
-        response = [friend]
+        friend1 = dict(name="Aida Tavakkolie", uid=172001264, gender='F', birthday_date="03/12/1983")
+        friend2 = dict(name="Alex Tucker", uid=172001265, gender='M')
+        friend3 = dict(name="Nad ComplexLastName", uid=172001266, gender='M', birthday_date="03/12")
+        response = [friend1, friend2, friend3]
 
         return response
 

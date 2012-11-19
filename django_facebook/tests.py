@@ -3,7 +3,7 @@ from django.contrib.auth.models import AnonymousUser, User
 from django.core.urlresolvers import reverse
 from django.test.client import Client
 from django_facebook import exceptions as facebook_exceptions, \
-    settings as facebook_settings, signals
+    settings as facebook_settings, signals, models
 from django_facebook.api import get_facebook_graph, FacebookUserConverter, \
     get_persistent_graph
 from django_facebook.auth_backends import FacebookBackend
@@ -307,6 +307,13 @@ class UserConnectTest(FacebookTest):
     def test_new_user(self):
         facebook = get_facebook_graph(access_token='new_user')
         action, user = connect_user(self.request, facebook_graph=facebook)
+
+    def test_friends_birthday(self):
+        facebook = get_facebook_graph(access_token='new_user')
+        action, user = connect_user(self.request, facebook_graph=facebook)
+        self.assertEqual(models.FacebookUser.objects.get(name="Nad ComplexLastName").birthday, "03/12")
+        self.assertEqual(models.FacebookUser.objects.get(name="Alex Tucker").birthday, None)
+        self.assertEqual(models.FacebookUser.objects.get(name="Aida Tavakkolie").birthday, "03/12/1983")
 
     def test_short_username(self):
         facebook = get_facebook_graph(access_token='short_username')
