@@ -358,16 +358,14 @@ class FacebookUserConverter(object):
     @classmethod
     def _parse_data_of_birth(cls, data_of_birth_string):
         if data_of_birth_string:
-            format = '%m/%d/%Y'
-            try:
-                parsed_date = datetime.datetime.strptime(
-                    data_of_birth_string, format)
-                return parsed_date
-            except ValueError:
-                # Facebook sometimes provides a partial date format
-                # ie 04/07 (ignore those)
-                if data_of_birth_string.count('/') != 1:
-                    raise
+            formats = ['%m/%d', '%m/%d/%Y']
+            for format in formats:
+                try:
+                    parsed_date = datetime.datetime.strptime(
+                        data_of_birth_string, format)
+                    return parsed_date
+                except ValueError:
+                    pass
 
     @classmethod
     def _report_broken_facebook_data(cls, facebook_data,
